@@ -1,36 +1,54 @@
 ---
-- name: Configure Nginx Web Server on AWS EC2
+# Play 1: System Preparation & Updates
+- name: Prepare Server and Update System Packages
   hosts: webservers
   become: yes
 
   tasks:
-    - name: Update all system packages
-      dnf:
-        name: "*"
-        state: latest
+    - name: Safely update system packages
+      block:
+        - name: Update all DNF packages to latest
+          dnf:
+            name: "*"
+            state: latest
+      rescue:
+        - name: Log package update failure
+          debug:
+            msg: "WARNING: Package update encountered an issue. Continuing to check web server state."
+      always:
+        - name: Confirm system preparation phase completed
+          debug:
+            msg: "System preparation phase finished on {{ inventory_hostname }}."
 
-    - name: Install Nginx web server
-      dnf:
-        name: nginx
-        state: present
+# Play 2: Deploy & Configure Nginx via Role + Vault
+- name: Deploy and Configure Nginx Web Server
+  hosts: webservers
+  become: yes
+  vars_files:
+    - group_vars/vault.yml
 
-    - name: Start and enable Nginx service
-      service:
-        name: nginx
-        state: started
-        enabled: yes
+  roles:
+    - nginx
 
-    - name: Deploy custom index.html to Nginx web root
-      copy:
-        src: index.html
-        dest: /usr/share/nginx/html/index.html
-        owner: nginx
-        group: nginx
-        mode: '0644'
-      notify: Restart Nginx
+# Play 3: Post-Deployment Health Check
+- name: Verify Nginx Web Server Health
+  hosts: webservers
+  become: no
 
-  handlers:
-    - name: Restart Nginx
-      service:
-        name: nginx
-        state: restarted
+  tasks:
+    - name: Check that Nginx is responding on HTTP Port 80
+      block:
+        - name: Send HTTP request to localhost
+          uri:
+            url: "http://localhost"
+            status_code: 200
+            return_content: yes
+          register: http_check
+
+        - name: Confirm custom page is live
+          debug:
+            msg: "SUCCESS: Nginx is live and returned HTTP {{ http_check.status }}."
+      rescue:
+        - name: Report health check failure
+          fail:
+            msg: "ERROR: Nginx health check failed on {{ inventory_hostname }}. Check Security Group or Nginx service logs."

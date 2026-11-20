@@ -1,2 +1,4 @@
 *.pem
 *.retry
+.vault_pass
+vault_pass.txt

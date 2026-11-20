@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Automated Nginx Deployment | AWS & Ansible</title>
+    <title>{{ app_title }} | {{ app_environment }}</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -53,19 +53,8 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        p {
-            color: #cbd5e1;
-            line-height: 1.6;
-            margin-bottom: 28px;
-            font-size: 1rem;
-        }
-        .stack {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 28px;
-        }
+        p { color: #cbd5e1; line-height: 1.6; margin-bottom: 28px; font-size: 1rem; }
+        .stack { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 28px; }
         .pill {
             background: #0f172a;
             border: 1px solid #334155;
@@ -87,20 +76,20 @@
     <div class="card">
         <div class="status-badge">
             <span class="dot"></span>
-            Server Online &amp; Automated
+            {{ app_environment }} Environment &bull; Automated
         </div>
-        <h1>Nginx Deployed via Ansible</h1>
+        <h1>{{ app_title }}</h1>
         <p>
-            This web server was provisioned on <strong>AWS EC2</strong> and configured automatically using an idempotent <strong>Ansible</strong> playbook—zero manual server setup required.
+            Provisioned on <strong>{{ app_cloud_provider }}</strong> and configured automatically using an idempotent <strong>Ansible Role</strong>.
         </p>
         <div class="stack">
-            <span class="pill">AWS EC2</span>
-            <span class="pill">Amazon Linux</span>
-            <span class="pill">Ansible</span>
+            <span class="pill">{{ app_cloud_provider }}</span>
+            <span class="pill">{{ app_os_name }}</span>
+            <span class="pill">Ansible Roles</span>
             <span class="pill">Nginx</span>
         </div>
         <div class="footer">
-            Infrastructure Automation &amp; Configuration Management
+            Managed by: {{ vault_admin_contact | default('DevOps Team') }}
         </div>
     </div>
 </body>

@@ -1,0 +1,5 @@
+---
+app_title: "Nginx Deployed via Ansible"
+app_environment: "Production"
+app_cloud_provider: "AWS EC2"
+app_os_name: "Amazon Linux"

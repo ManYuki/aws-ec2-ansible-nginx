@@ -1,3 +1,7 @@
-#SPDX-License-Identifier: MIT-0
 ---
-# defaults file for roles/nginx
+nginx_package_name: nginx
+nginx_service_name: nginx
+nginx_web_root: /usr/share/nginx/html
+nginx_user: nginx
+nginx_group: nginx
+nginx_index_mode: "0644"

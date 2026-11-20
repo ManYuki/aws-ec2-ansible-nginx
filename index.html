@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automated Nginx Deployment | AWS & Ansible</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .card {
+            background: rgba(30, 41, 59, 0.85);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            text-align: center;
+        }
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            border: 1px solid rgba(52, 211, 153, 0.3);
+        }
+        .dot {
+            width: 8px;
+            height: 8px;
+            background-color: #10b981;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #10b981;
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 12px;
+            background: linear-gradient(90deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        p {
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin-bottom: 28px;
+            font-size: 1rem;
+        }
+        .stack {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 28px;
+        }
+        .pill {
+            background: #0f172a;
+            border: 1px solid #334155;
+            color: #e2e8f0;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .footer {
+            border-top: 1px solid rgba(148, 163, 184, 0.15);
+            padding-top: 18px;
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="status-badge">
+            <span class="dot"></span>
+            Server Online &amp; Automated
+        </div>
+        <h1>Nginx Deployed via Ansible</h1>
+        <p>
+            This web server was provisioned on <strong>AWS EC2</strong> and configured automatically using an idempotent <strong>Ansible</strong> playbook—zero manual server setup required.
+        </p>
+        <div class="stack">
+            <span class="pill">AWS EC2</span>
+            <span class="pill">Amazon Linux</span>
+            <span class="pill">Ansible</span>
+            <span class="pill">Nginx</span>
+        </div>
+        <div class="footer">
+            Infrastructure Automation &amp; Configuration Management
+        </div>
+    </div>
+</body>
+</html>

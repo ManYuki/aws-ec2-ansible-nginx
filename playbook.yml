@@ -1,0 +1,36 @@
+---
+- name: Configure Nginx Web Server on AWS EC2
+  hosts: webservers
+  become: yes
+
+  tasks:
+    - name: Update all system packages
+      dnf:
+        name: "*"
+        state: latest
+
+    - name: Install Nginx web server
+      dnf:
+        name: nginx
+        state: present
+
+    - name: Start and enable Nginx service
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Deploy custom index.html to Nginx web root
+      copy:
+        src: index.html
+        dest: /usr/share/nginx/html/index.html
+        owner: nginx
+        group: nginx
+        mode: '0644'
+      notify: Restart Nginx
+
+  handlers:
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted
